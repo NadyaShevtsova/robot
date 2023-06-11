@@ -23,7 +23,6 @@ describe Commands::Report do
     end
 
     context 'when called without options' do
-      # let(:place_robot) { Commands::Place.perform(robot:, options: '1,2,north') }
       it 'executes the report command and outputs the current position' do
         Commands::Place.perform(robot:, options: '1,2,north')
         expect { report_command.perform(robot:, options: '') }
