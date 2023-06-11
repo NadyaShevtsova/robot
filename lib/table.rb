@@ -1,19 +1,21 @@
-require './lib/config.rb'
+# frozen_string_literal: true
+
+require './lib/config'
 
 class Table
   attr_reader :width, :height
 
-  def initialize( options={} )
-    @width = natural_number?(options[:width]) || Config::DEFAUL_TABLE_SIZE
-    @height = natural_number?(options[:height]) || Config::DEFAUL_TABLE_SIZE
+  def initialize(width: nil, height: nil)
+    @width =  natural_number?(width) ? width.to_i : Config::DEFAUL_TABLE_SIZE
+    @height = natural_number?(height) ? height.to_i : Config::DEFAUL_TABLE_SIZE
   end
 
   private
+
   def natural_number?(value)
-    if !(/^\d+$/.match(value.to_s) && value.to_i > 0)
-      puts "\n You have input incorrect value #{value} for table size, it will be reset to defaul value: #{Config::DEFAUL_TABLE_SIZE}\n"
-      return false
-    end
-    value.to_i
+    return true if /^\d+$/.match(value.to_s) && value.to_i.positive?
+
+    puts "\n You have input incorrect value #{value} for table size, it will be reset to defaul value: #{Config::DEFAUL_TABLE_SIZE}\n"
+    false
   end
 end
