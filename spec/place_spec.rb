@@ -49,11 +49,11 @@ describe Commands::Place do
     end
 
     context 'when direction is invalid' do
-      let(:options) { '1, 1, africa' }
+      let(:options) { '1,1,africa' }
 
       it 'returns false and outputs an error message' do
         expect { Commands::Place.perform(robot:, options:) }
-          .to output("Location is not on table\n").to_stdout
+          .to output("Invalid direction\n").to_stdout
         expect(Commands::Place.perform(robot:, options: '1,2,INVALID')).to be_falsey
       end
     end

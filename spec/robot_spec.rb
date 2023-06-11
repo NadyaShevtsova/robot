@@ -20,4 +20,37 @@ describe Robot do
       expect(robot.orientation_humanise).to eq(inverted_hash)
     end
   end
+
+  describe '#on_table?' do
+    context 'when the coordinates are within the table' do
+      it 'returns true' do
+        expect(robot.on_table?(2, 3)).to be_truthy
+        expect(robot.on_table?(0, 0)).to be_truthy
+        expect(robot.on_table?(4, 4)).to be_truthy
+      end
+    end
+
+    context 'when the x-coordinate is outside the table' do
+      it 'returns false' do
+        expect(robot.on_table?(-1, 2)).to be_falsey
+        expect(robot.on_table?(5, 2)).to be_falsey
+        expect { robot.on_table?(-1, 5) }.to output("Location is not on table\n").to_stdout
+      end
+    end
+
+    context 'when the y-coordinate is outside the table' do
+      it 'returns false' do
+        expect(robot.on_table?(2, -1)).to be_falsey
+        expect(robot.on_table?(2, 5)).to be_falsey
+      end
+    end
+
+    context 'when the coordinates are not valid numbers' do
+      it 'returns false' do
+        expect(robot.on_table?('abc', 2)).to be_falsey
+        expect(robot.on_table?(2, 'def')).to be_falsey
+        expect(robot.on_table?('abc', 'def')).to be_falsey
+      end
+    end
+  end
 end

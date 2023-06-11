@@ -12,7 +12,7 @@ describe Input do
 
   describe '#available_commands' do
     it 'returns an array of available command names' do
-      expect(subject.send(:available_commands)).to eq(%w[LEFT RIGHT REPORT PLACE].sort)
+      expect(subject.send(:available_commands)).to eq(%w[LEFT MOVE RIGHT REPORT PLACE].sort)
     end
   end
 
