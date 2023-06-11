@@ -5,7 +5,7 @@ require './lib/config'
 class Table
   attr_reader :width, :height
 
-  def initialize(width: nil, height: nil)
+  def initialize(width: Config::DEFAUL_TABLE_SIZE, height: Config::DEFAUL_TABLE_SIZE )
     @width =  natural_number?(width) ? width.to_i : Config::DEFAUL_TABLE_SIZE
     @height = natural_number?(height) ? height.to_i : Config::DEFAUL_TABLE_SIZE
   end
