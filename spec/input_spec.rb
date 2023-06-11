@@ -16,12 +16,75 @@ describe Input do
     end
   end
 
-  describe '#read' do
-    # context 'when a valid command is provided' do
-    #   it 'runs the corresponding command' do
-    #   end
-    # end
+  describe '#valid_command?' do
+    context 'robot not on the table' do
+      it do
+        subject.command = ['LEFT']
+        expect(subject.send(:valid_command?)).to be_falsey
+      end
 
+      it do
+        subject.command = ['RIGHT']
+        expect(subject.send(:valid_command?)).to be_falsey
+      end
+
+      it do
+        subject.command = ['MOVE']
+        expect(subject.send(:valid_command?)).to be_falsey
+      end
+
+      it do
+        subject.command = ['REPORT']
+        expect(subject.send(:valid_command?)).to be_falsey
+      end
+
+      it do
+        subject.command = ['PLACE']
+        expect(subject.send(:valid_command?)).to be_truthy
+      end
+
+      it do
+        subject.command = ['PLACE', '1,1,north']
+        expect(subject.send(:valid_command?)).to be_truthy
+      end
+    end
+
+    context 'robot on the table' do
+      before { Commands::Place.perform(robot:, options: '1,1,north') }
+
+      it do
+        subject.command = ['LEFT']
+        expect(subject.send(:valid_command?)).to be_truthy
+      end
+
+      it do
+        subject.command = ['RIGHT']
+        expect(subject.send(:valid_command?)).to be_truthy
+      end
+
+      it do
+        subject.command = ['MOVE']
+        expect(subject.send(:valid_command?)).to be_truthy
+      end
+
+      it do
+        subject.command = ['REPORT']
+        expect(subject.send(:valid_command?)).to be_truthy
+      end
+
+      it do
+        subject.command = ['PLACE']
+        expect(subject.send(:valid_command?)).to be_truthy
+      end
+
+      it do
+        subject.command = ['PLACE', '1,1,north']
+        expect(subject.send(:valid_command?)).to be_truthy
+      end
+    end
+  end
+
+  describe '#read' do
     context 'when an invalid command is provided' do
       it 'does not run any command' do
         expect(input.read('some_invalid_command')).to be_falsey

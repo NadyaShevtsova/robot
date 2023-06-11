@@ -17,16 +17,16 @@ describe Commands::Report do
 
       it 'outputs an error message and returns false' do
         expect { report_command.perform(robot:, options:) }
-          .to output("Incorrect command REPORT with options #{options}\n").to_stdout
+          .to output("Incorrect command REPORT, it should be without any options\n").to_stdout
         expect(report_command.perform(robot:, options:)).to be_falsey
       end
     end
 
     context 'when called without options' do
-      it 'executes the report command and outputs the current position' do
+      it 'executes the report command and outputs the output' do
         Commands::Place.perform(robot:, options: '1,2,north')
         expect { report_command.perform(robot:, options: '') }
-          .to output("Current position 1,2,NORTH\n").to_stdout
+          .to output("Output: 1,2,NORTH\n").to_stdout
       end
     end
   end

@@ -14,22 +14,21 @@ class Input
     @command = str.split(' ')
     return false unless valid_command?
 
-    class_command.perform(robot:@robot, options: @command[1..].join())
+    class_command.perform(robot:, options: @command[1..].join())
   end
 
   private
 
   def valid_command?
-    unless available_commands.include?(@command[0].upcase)
-      puts "Invalid command #{@command[0]}. Please inlut a valid command: #{available_commands.join(', ')}"
+    unless available_commands.include?(command[0].upcase)
+      puts "Invalid command #{command[0]}. Please inlut a valid command: #{available_commands.join(', ')}"
       return false
     end
 
-    # check if robot is on a table and first command is Place
-    # if !@robot.on_table? && @command[0].downcase.capitalize != 'Commands::Place'
-    #   puts 'First command should be PLACE. Please enter valid command.'
-    #   return false
-    # end
+    if command[0].downcase.capitalize != 'Place' && !@robot.on_table?
+      puts 'First command should be PLACE. Please enter valid command.'
+      return false
+    end
 
     true
   end
@@ -42,5 +41,9 @@ class Input
       class_names << constant.name.split('::').last.upcase if constant.is_a?(Class)
     end
     class_names.sort
+  end
+
+  def class_command
+    Object.const_get("Commands::#{command[0].downcase.capitalize}")
   end
 end

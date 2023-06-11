@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require './lib/command'
 require './lib/commands/move'
 require './lib/commands/place'
 require './lib/robot'

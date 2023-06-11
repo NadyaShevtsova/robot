@@ -1,24 +1,14 @@
 # frozen_string_literal: true
 
+require './lib/command'
+
 module Commands
-  class Report
+  class Report < Command
     class << self
-      def perform(options:, robot: Robot)
-        @robot = robot
-
-        unless options.empty?
-          puts "Incorrect command REPORT with options #{options}"
-
-          return false
-        end
-
-        execute
-      end
-
       private
 
       def execute
-        puts "Current position #{@robot.x_coordinate},#{@robot.y_coordinate},#{@robot.orientation_humanise[@robot.orientation]}"
+        puts "Output: #{@robot.x_coordinate},#{@robot.y_coordinate},#{@robot.orientation_humanise[@robot.orientation]}"
       end
     end
   end

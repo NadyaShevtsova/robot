@@ -15,7 +15,7 @@ class Robot
     Config::DIRECTION_TO_ANGLE.invert
   end
 
-  def on_table?(x_coord, y_coord)
+  def on_table?(x_coord = x_coordinate, y_coord = y_coordinate)
     if Helper.number?(x_coord) &&
        Helper.number?(y_coord) &&
        (0...table.width).cover?(x_coord.to_i) &&

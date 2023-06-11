@@ -1,22 +1,11 @@
 # frozen_string_literal: true
 
+require './lib/command'
 require './lib/config'
 
 module Commands
-  class Left
+  class Left < Command
     class << self
-      def perform(options:, robot: Robot)
-        @robot = robot
-
-        unless options.empty?
-          puts 'Incorrect command LEFT, it should be without any options'
-
-          return false
-        end
-
-        execute
-      end
-
       private
 
       def execute
