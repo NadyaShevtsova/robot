@@ -1,58 +1,89 @@
 # frozen_string_literal: true
 
 require './lib/table'
+require 'debug'
 
 describe Table do
-  context 'with invalid size' do
-    context 'negative value' do
-      let(:table) { Table.new(width: 6, height: -1) }
+  let(:default_width) { Config::DEFAUL_TABLE_SIZE }
+  let(:default_height) { Config::DEFAUL_TABLE_SIZE }
+  let(:width) { 10 }
+  let(:height) { 8 }
+  subject(:table) { Table.new }
 
-      it { expect(table.width).to eq(6) }
-      it { expect(table.height).to eq(5) }
+  describe '#initialize' do
+    context 'with default width and height' do
+      it 'sets the width and height to default values' do
+        expect(table.width).to eq(default_width)
+        expect(table.height).to eq(default_height)
+      end
     end
 
-    context 'with float value' do
-      let(:table) { Table.new(width: 6.5, height: 4) }
+    context 'with custom width and height' do
+      subject(:table) { Table.new(width:, height:) }
 
-      it { expect(table.width).to eq(5) }
-      it { expect(table.height).to eq(4) }
-    end
-
-    context 'with empty value' do
-      let(:table) { Table.new(width: '', height: '') }
-
-      it { expect(table.width).to eq(5) }
-      it { expect(table.height).to eq(5) }
-    end
-
-    context 'with string value' do
-      let(:table) { Table.new(width: 'abc', height: '7') }
-
-      it { expect(table.width).to eq(5) }
-      it { expect(table.height).to eq(7) }
-    end
-
-    context 'with nil value' do
-      let(:table) { Table.new(width: nil, height: nil) }
-
-      it { expect(table.width).to eq(5) }
-      it { expect(table.height).to eq(5) }
+      it 'sets the width and height to the provided values' do
+        expect(table.width).to eq(width)
+        expect(table.height).to eq(height)
+      end
     end
   end
 
-  context 'with valid size' do
-    context 'default value' do
-      let(:table) { Table.new }
-
-      it { expect(table.width).to eq(5) }
-      it { expect(table.height).to eq(5) }
+  describe '#on_table?' do
+    context 'when the coordinates are within the table' do
+      it 'returns true' do
+        expect(table.on_table?(2, 3)).to be_truthy
+        expect(table.on_table?(0, 0)).to be_falsey
+        expect(table.on_table?(4, 4)).to be_truthy
+      end
     end
 
-    context 'natural numbers' do
-      let(:table) { Table.new(width: 10, height: 20) }
+    context 'when the x-coordinate is outside the table' do
+      it 'returns false' do
+        expect(table.on_table?(-1, 2)).to be_falsey
+        expect(table.on_table?(5, 2)).to be_falsey
+      end
+    end
 
-      it { expect(table.width).to eq(10) }
-      it { expect(table.height).to eq(20) }
+    context 'when the y-coordinate is outside the table' do
+      it 'returns false' do
+        expect(table.on_table?(2, -1)).to be_falsey
+        expect(table.on_table?(2, 5)).to be_falsey
+      end
+    end
+
+    context 'when the coordinates are not natural numbers' do
+      it 'returns false' do
+        expect(table.on_table?('abc', 2)).to be_falsey
+        expect(table.on_table?(2, 'def')).to be_falsey
+        expect(table.on_table?('abc', 'def')).to be_falsey
+      end
+    end
+  end
+
+  describe 'private method #natural_number?' do
+    context 'when the value is a natural number' do
+      it 'returns true' do
+        expect(table.send(:natural_number?, 5)).to be_truthy
+      end
+    end
+
+    context 'when the value is not a natural number' do
+      it 'returns false' do
+        expect(table.send(:natural_number?, -1)).to be_falsey
+        expect(table.send(:natural_number?, 'abc')).to be_falsey
+        expect(table.send(:natural_number?, 0)).to be_falsey
+      end
+    end
+
+    context 'when called on initialization with incorrect values' do
+      let(:invalid) { [-1, 'abc'] }
+      it 'outputs an error message and resets to default values' do
+        expect { Table.new(width: invalid[0], height: invalid[1]) }
+          .to output("\n You have input incorrect value #{invalid[0]} for table size, it will be reset to default value: #{default_width}\n\n You have input incorrect value #{invalid[1]} for table size, it will be reset to default value: #{default_width}\n").to_stdout
+
+        expect(table.width).to eq(default_width)
+        expect(table.height).to eq(default_height)
+      end
     end
   end
 end

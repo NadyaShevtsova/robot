@@ -14,7 +14,7 @@ class Input
     @command = str.split(' ')
     return false unless valid_command?
 
-    class_command.run(@command[1..])
+    class_command.perform(@command[1..].join())
   end
 
   private
