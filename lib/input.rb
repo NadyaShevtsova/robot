@@ -14,7 +14,7 @@ class Input
     @command = str.split(' ')
     return false unless valid_command?
 
-    class_command.perform(@command[1..].join())
+    class_command.perform(robot:@robot, options: @command[1..].join())
   end
 
   private
