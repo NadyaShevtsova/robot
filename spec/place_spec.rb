@@ -20,7 +20,7 @@ describe Commands::Place do
         Commands::Place.perform(robot:, options: valid_options)
         expect(robot.x_coordinate).to eq(1)
         expect(robot.y_coordinate).to eq(2)
-        expect(robot.orientation).to eq('NORTH')
+        expect(robot.orientation).to eq(0)
       end
 
       it 'returns true' do

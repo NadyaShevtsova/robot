@@ -18,7 +18,7 @@ module Commands
       private
 
       def execute
-        puts "Current position #{@robot.x_coordinate},#{@robot.y_coordinate},#{@robot.orientation}"
+        puts "Current position #{@robot.x_coordinate},#{@robot.y_coordinate},#{@robot.orientation_humanise[@robot.orientation]}"
       end
     end
   end

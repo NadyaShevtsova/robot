@@ -27,7 +27,7 @@ module Commands
       def execute
         @robot.x_coordinate = @options[0].to_i
         @robot.y_coordinate = @options[1].to_i
-        @robot.orientation = @options[2].upcase
+        @robot.orientation = Config::DIRECTION_TO_ANGLE[@options[2].upcase]
       end
 
       def valid_options_size?

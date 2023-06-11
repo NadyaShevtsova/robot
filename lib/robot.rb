@@ -8,4 +8,8 @@ class Robot
     @table = table
     @x_coordinate, @y_coordinate, @orientation = nil
   end
+
+  def orientation_humanise
+    Config::DIRECTION_TO_ANGLE.invert
+  end
 end
