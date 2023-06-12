@@ -13,7 +13,10 @@ module Commands
         new_x = @robot.x_coordinate + coord[0]
         new_y = @robot.y_coordinate + coord[1]
 
-        @robot.x_coordinate, @robot.y_coordinate = new_x, new_y if @robot.on_table?(new_x, new_y)
+        return unless @robot.on_table?(new_x, new_y)
+
+        @robot.x_coordinate = new_x
+        @robot.y_coordinate = new_y
       end
     end
   end

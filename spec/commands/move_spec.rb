@@ -64,36 +64,6 @@ RSpec.describe Commands::Move do
     end
 
     context 'when called without options' do
-      # context 'when robot is on the table' do
-      #   before do
-      #     allow(robot).to receive(:on_table?).and_return(true)
-      #   end
-
-      #     it 'updates the robot coordinates based on the current orientation' do
-      #       robot.x_coordinate = 2
-      #       robot.y_coordinate = 3
-      #       robot.orientation = 0 # Facing NORTH
-
-      #       expect(robot).to receive(:on_table?).with(2, 4).and_return(true)
-      #       move_command.perform(options: [], robot: robot)
-
-      #       expect(robot.x_coordinate).to eq(2)
-      #       expect(robot.y_coordinate).to eq(4)
-      #     end
-
-      #     it 'does not update the robot coordinates if the move is not allowed' do
-      #       robot.x_coordinate = 4
-      #       robot.y_coordinate = 2
-      #       robot.orientation = 90 # Facing EAST
-
-      #       expect(robot).to receive(:on_table?).with(5, 2).and_return(false)
-      #       move_command.perform(options: [], robot: robot)
-
-      #       expect(robot.x_coordinate).to eq(4)
-      #       expect(robot.y_coordinate).to eq(2)
-      #     end
-      #   end
-
       context 'when robot will be not on the table after move' do
         before { Commands::Place.perform(robot:, options: '4,4,north') }
 

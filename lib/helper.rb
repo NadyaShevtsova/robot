@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Helper
   class << self
     def number?(value)

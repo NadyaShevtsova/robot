@@ -8,7 +8,7 @@ module Commands
       private
 
       def execute
-        puts "Output: #{@robot.x_coordinate},#{@robot.y_coordinate},#{@robot.orientation_humanise[@robot.orientation]}"
+        print "Output: #{@robot.x_coordinate},#{@robot.y_coordinate},#{@robot.orientation_humanise[@robot.orientation]}"
       end
     end
   end

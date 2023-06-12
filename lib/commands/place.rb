@@ -34,7 +34,7 @@ module Commands
       def valid_options_size?
         return true if @options.size == 3
 
-        puts 'Place command shoud have 3 parametrs'
+        puts 'Place command should have 3 parameters'
         false
       end
 

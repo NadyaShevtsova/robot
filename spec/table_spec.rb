@@ -44,7 +44,7 @@ describe Table do
     end
 
     context 'when called on initialization with incorrect values' do
-      let(:invalid) {[-1, 'abc']}
+      let(:invalid) { [-1, 'abc'] }
       it 'outputs an error message and resets to default values' do
         expect { Table.new(width: invalid[0], height: invalid[1]) }
           .to output("\n You have input incorrect value #{invalid[0]} for table size, it will be reset to default value: #{default_width}\n\n You have input incorrect value #{invalid[1]} for table size, it will be reset to default value: #{default_width}\n").to_stdout

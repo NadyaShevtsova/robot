@@ -14,14 +14,14 @@ class Input
     @command = str.split(' ')
     return false unless valid_command?
 
-    class_command.perform(robot:, options: @command[1..].join())
+    class_command.perform(robot:, options: @command[1..].join)
   end
 
   private
 
   def valid_command?
     unless available_commands.include?(command[0].upcase)
-      puts "Invalid command #{command[0]}. Please inlut a valid command: #{available_commands.join(', ')}"
+      puts "Invalid command #{command[0]}. Please input a valid command: #{available_commands.join(', ')}"
       return false
     end
 

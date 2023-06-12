@@ -33,7 +33,7 @@ describe Commands::Place do
 
       it 'returns false and outputs an error message' do
         expect { Commands::Place.perform(robot:, options: invalid_options_size) }
-          .to output("Place command shoud have 3 parametrs\n").to_stdout
+          .to output("Place command should have 3 parameters\n").to_stdout
         expect(Commands::Place.perform(robot:, options: invalid_options_size)).to be_falsey
       end
     end
